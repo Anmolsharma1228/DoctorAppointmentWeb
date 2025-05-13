@@ -6,15 +6,15 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.signupUser = async (req, res) => {
   try {
-    const { Name, Email, Contact_Number, Password } = req.body;
+    const { name, email, contact_number, password } = req.body;
     const userExists = await User.findOne({ Email });
     if (userExists) return res.status(400).json({ msg: "User already exists" });
 
-    const hashedPassword = await bcrypt.hash(Password, 6);
+    const hashedPassword = await bcrypt.hash(password, 6);
     const newUser = await User.create({
-      Name,
-      Email,
-      Contact_Number,
+      name,
+      email,
+      contact_number,
       Password: hashedPassword,
     });
 
@@ -23,7 +23,7 @@ exports.signupUser = async (req, res) => {
     });
     console.log("JWT_SECRET:", JWT_SECRET);
 
-    res.status(201).json({ token, user: { id: newUser._id, Email } });
+    res.status(201).json({ token, user: { id: newUser._id, email } });
   } catch (error) {
     console.error("Signup Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
