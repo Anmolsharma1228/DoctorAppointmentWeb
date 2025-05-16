@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const signupSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -25,5 +25,5 @@ const signupSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const signup = mongoose.model("signup", signupSchema);
-module.exports = signup;
+const UserModel = mongoose.model("users", UserSchema);
+module.exports = UserModel;
