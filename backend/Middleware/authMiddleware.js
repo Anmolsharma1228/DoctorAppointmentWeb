@@ -1,4 +1,7 @@
 const joi = require("joi");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 
 const signupValidation = (req, res, next) => {
   const schema = joi.object({
@@ -32,7 +35,28 @@ const loginValidation = (req, res, next) => {
   next();
 };
 
+
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${Date.now()}-${file.originalname}`;
+    cb(null, uniqueName);
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB
+});
+
+
 module.exports = {
   signupValidation,
   loginValidation,
+  upload
 };

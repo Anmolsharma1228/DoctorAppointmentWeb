@@ -1,5 +1,6 @@
 import React from 'react'
 import Router from './Routes/Router'
+import "react-toastify/dist/ReactToastify.css";
 import './App.css'
 
 function App() {

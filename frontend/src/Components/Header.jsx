@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import { FaBars, FaCheck, FaRegUser } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { logout } from "../Action/Action";
 import { ImCross } from "react-icons/im";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import profile from "../assets/profile.jpg";
 
 const Header = () => {
   const [toggle, setToggle] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  const LogoutButton = () =>{
+   dispatch(logout())
+   navigate("/login")   
+  }  
 
   return (
     <div className="">
@@ -40,7 +50,10 @@ const Header = () => {
       </nav>
 
       {/* Sidebar */}
-      <div className={`bg-white shadow-lg w-[200px] h-full fixed top-[50px] left-0 transform ${toggle ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out z-40`}>
+      <div className={`bg-white shadow-lg w-[200px] fixed top-[64px] bottom-0 left-0 transform 
+  ${toggle ? "translate-x-0" : "-translate-x-full"} 
+  transition-transform duration-300 ease-in-out z-40 overflow-y-auto`}>
+
         <div className="py-6 text-center">
           <img src={profile} alt="Profile" className="w-[80px] h-[80px] rounded-full mx-auto" />
           <p className="font-semibold mt-2">Lorem Ipsum</p>
@@ -66,23 +79,15 @@ const Header = () => {
           </NavLink>
         </div>
         <div className="flex flex-col gap-3 mt-8 px-4">
-          <button className="flex items-center justify-center gap-2 rounded-r-full bg-[#7A1CAC] text-white py-2 font-semibold text-lg cursor-pointer">
+          <Link to="/patient" className="flex items-center justify-center gap-2 rounded-r-full bg-[#7A1CAC] text-white py-2 font-semibold text-lg cursor-pointer">
             <FaCheck />
             Patient
-          </button>
-          <button className="flex items-center justify-center gap-2 text-gray-800 bg-white py-2 rounded-r-full font-semibold text-lg cursor-pointer">
+          </Link>
+          <button onClick={LogoutButton} className="flex items-center justify-center gap-2 text-gray-800 bg-white py-2 rounded-r-full font-semibold text-lg cursor-pointer">
             <FaRegUser />
             Logout
           </button>
         </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex pt-[80px]">
-        {/* Sidebar spacer */}
-        <div className="hidden md:block w-[200px]" />
-
-      
       </div>
     </div>
   );

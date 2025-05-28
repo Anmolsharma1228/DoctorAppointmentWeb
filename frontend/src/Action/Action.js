@@ -1,21 +1,95 @@
-import { ADD_DATA } from "./ActionType";
+import { ADD_DATA, LOGIN_SUCCESS, PATIENT, GET_PATIENT_DATA, LOGOUT } from "./ActionType";
 import axios from "axios";
 
-export const addData = (formData) => {
+export const addData = (userData) => {
   return async (dispatch) => {
-    dispatch({ type: ADD_DATA });
-
     try {
-      const res = await fetch("https://doctorappointmentweb.onrender.com/users/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const res = await axios.post(
+        "https://doctorappointmentweb.onrender.com/auth/signup",
+        userData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      dispatch({
+        type: ADD_DATA,
+        payload: {
+          httpresponse: res.data,
+        },
       });
-
-      const data = await res.json();
-      dispatch({ type: ADD_DATA, payload: data });
-    } catch (error) {
-      console.log(error)
+      return {
+        payload: {
+          httpresponse: res.data,
+        },
+      };
+    } catch (err) {
+      console.log("Error found", err);
     }
   };
 };
+
+export const patientdata = (patientdata) => {
+  return async (dispatch) => {
+    try {
+      const res = axios.post(
+        "https://doctorappointmentweb.onrender.com/patient/post",
+        patientdata,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      dispatch({
+        type: PATIENT,
+        payload: {
+          httpresponse: res.data,
+        },
+      });
+      return {
+        payload: {
+          httpresponse: res.data,
+        },
+      };
+    } catch (error) {
+      console.log("Error found", error);
+    }
+  };
+};
+
+export const getPatientData = () => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get("https://doctorappointmentweb.onrender.com/patient/get");
+      dispatch({
+        type: GET_PATIENT_DATA,
+        payload: res.data.patients, 
+      });
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
+    }
+  };
+};
+
+export const login = (formdata) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post(
+        "https://doctorappointmentweb.onrender.com/auth/login",
+        formdata
+      );
+
+      if (res.status === 200) {
+        dispatch({ type: LOGIN_SUCCESS, payload: res.data.user });
+        return Promise.resolve();
+      }
+    } catch (error) {
+      return Promise.reject(error.response?.data?.message || "Login failed");
+    }
+  };
+};
+
+
+export const logout = () =>{
+  return {
+    type: LOGOUT,
+  }
+}

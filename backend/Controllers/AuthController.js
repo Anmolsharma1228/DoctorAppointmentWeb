@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/User');
+const path = require('path');
 
   const signup = async (req, res) =>{
   try{
@@ -69,7 +70,22 @@ const UserModel = require('../models/User');
 }
 
 
+const handleUpload = (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+
+  const fileUrl = `/uploads/${req.file.filename}`; // relative URL
+
+  res.status(200).json({
+    message: "File uploaded successfully",
+    fileUrl,
+  });
+};
+
+
 module.exports = {
   signup,
-  login
+  login, 
+  handleUpload
 }
