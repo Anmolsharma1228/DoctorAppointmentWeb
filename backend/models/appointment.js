@@ -15,7 +15,7 @@ const appointmentSchema = new mongoose.Schema({
   },
   File: {
     type: String,
-    required: false
+    required: true
   }
 }, {
   timestamps: true

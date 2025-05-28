@@ -8,6 +8,6 @@ const { signup, login, handleUpload } = require("../Controllers/AuthController")
 
 router.post("/signup", signupValidation, signup);
 router.post("/login", loginValidation, login);
-router.post("/", upload.single("attachment"), handleUpload);
+router.post("/upload", upload.single("attachment"), handleUpload);
 
 module.exports = router;
