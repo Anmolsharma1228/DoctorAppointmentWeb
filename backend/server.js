@@ -20,7 +20,7 @@ dbConnection();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
-app.use("/uploads", express.static(uploadDir));
+// app.use("/uploads", express.static(uploadDir));
 
 // Routes
 app.use("/patient", patientRoutes);
