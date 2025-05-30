@@ -40,11 +40,7 @@ const authenticateUpload = (req, res, next) => {
   // Dummy check: you can replace this with real auth logic (JWT, session, etc.)
   const authHeader = req.headers.authorization;
 
-  if (authHeader === 'Bearer mysecrettoken') {
-    next(); // Allow access
-  } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
+ 
 };
 
 
