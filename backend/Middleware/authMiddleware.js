@@ -36,20 +36,21 @@ const loginValidation = (req, res, next) => {
 };
 
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.originalname + '-' + uniqueSuffix)
-  }
-})
+const authenticateUpload = (req, res, next) => {
+  // Dummy check: you can replace this with real auth logic (JWT, session, etc.)
+  const authHeader = req.headers.authorization;
 
-const upload = multer({ storage: storage })
+  if (authHeader === 'Bearer mysecrettoken') {
+    next(); // Allow access
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+};
+
+
 
 module.exports = {
   signupValidation,
   loginValidation,
-  upload
+  authenticateUpload
 };

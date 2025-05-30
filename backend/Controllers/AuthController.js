@@ -71,43 +71,20 @@ const path = require('path');
 }
 
 
-const handleUpload = async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ message: "No file uploaded" });
-    }
-
-    // Extract other form fields (make sure frontend sends them correctly)
-    const { appointmentDate, department, comments } = req.body;
-
-    if (!appointmentDate || !department || !comments) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    const fileUrl = `/uploads/${req.file.filename}`;
-
-    // Save appointment record in DB
-    const newAppointment = new appointmentModel({
-      date: appointmentDate,
-      department: department,
-      comments: comments,
-      file: fileUrl,
-    });
-
-    await newAppointment.save();
-
-    res.status(201).json({
-      message: "Appointment booked and file uploaded successfully",
-      appointment: newAppointment,
-    });
-  } catch (error) {
-    console.error("Upload Error:", error);
-    res.status(500).json({ message: "Internal server error" });
+const uploadFile = (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded' });
   }
+
+  res.status(200).json({
+    message: 'File uploaded successfully',
+    filePath: `/uploads/${req.file.filename}`
+  });
 };
+
 
 module.exports = {
   signup,
   login, 
-  handleUpload
+  uploadFile
 }

@@ -13,14 +13,12 @@ dotenv.config();
 const app = express();
 dbConnection();
 
-// // Ensure uploads directory exists
-// const uploadDir = path.join(__dirname, "uploads");
-// if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
-// app.use("/uploads", express.static(uploadDir));
 
 // Routes
 app.use("/patient", patientRoutes);
