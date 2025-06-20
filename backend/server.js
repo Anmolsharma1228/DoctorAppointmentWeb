@@ -1,9 +1,8 @@
 const dotenv = require("dotenv");
-const path = require("path");
-const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
 
 const dbConnection = require("./config/db");
 const patientRoutes = require("./routes/patientRoutes");
@@ -13,8 +12,6 @@ dotenv.config();
 const app = express();
 dbConnection();
 
-// Serve uploaded files statically
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cors());
 app.use(bodyParser.json());

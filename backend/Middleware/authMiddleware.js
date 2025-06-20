@@ -1,7 +1,4 @@
 const joi = require("joi");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
 
 const signupValidation = (req, res, next) => {
   const schema = joi.object({
@@ -36,17 +33,8 @@ const loginValidation = (req, res, next) => {
 };
 
 
-const authenticateUpload = (req, res, next) => {
-  // Dummy check: you can replace this with real auth logic (JWT, session, etc.)
-  const authHeader = req.headers.authorization;
-
- 
-};
-
-
 
 module.exports = {
   signupValidation,
   loginValidation,
-  authenticateUpload
 };

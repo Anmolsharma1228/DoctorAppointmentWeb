@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/User');
-const appointmentModel = require("../models/appointment");
-const path = require('path');
+const Appointment = require('../models/appointment')
 
   const signup = async (req, res) =>{
   try{
@@ -70,21 +69,41 @@ const path = require('path');
   }
 }
 
+const appointment = async (req, res) => {
+  try {
+    console.log("Form body:", req.body);
+    console.log("Uploaded file:", req.file); // ✅ Check file info
 
-const uploadFile = (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: 'No file uploaded' });
+    const { date, department, comments } = req.body;
+    const filePath = req.file ? req.file.path : null;
+
+    const appointmentModel = new Appointment({
+      date,
+      department,
+      comments,
+      file: filePath, // saved in DB
+    });
+
+    await appointmentModel.save();
+
+    res.status(201).json({
+      message: "Appointment created successfully",
+      success: true,
+      data: appointmentModel
+    });
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
   }
-
-  res.status(200).json({
-    message: 'File uploaded successfully',
-    filePath: `/uploads/${req.file.filename}`
-  });
 };
+
 
 
 module.exports = {
   signup,
   login, 
-  uploadFile
+  appointment
 }
