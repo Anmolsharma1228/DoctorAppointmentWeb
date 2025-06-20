@@ -1,10 +1,12 @@
-import { ADD_DATA, LOGIN_SUCCESS, LOGIN_FAILURE, PATIENT, GET_PATIENT_DATA, LOGOUT } from "../Action/ActionType"
+import { appointment } from "../Action/Action";
+import { ADD_DATA, LOGIN_SUCCESS, LOGIN_FAILURE, PATIENT, GET_PATIENT_DATA, LOGOUT, APPOINTMENT } from "../Action/ActionType"
 
 const initistate = {
   data: [],
   user: null,
   error: null,
-  patient: {}
+  patient: {},
+  appointment: {}
 }
 
 const reducer = (state = initistate, action) =>{
@@ -14,6 +16,12 @@ switch(action.type){
       ...state,
       data: [...state.data, action.payload]
     }
+ 
+    case APPOINTMENT:
+      return {
+        ...state,
+        appointment: action.payload,
+      };
 
     case GET_PATIENT_DATA:
       return {

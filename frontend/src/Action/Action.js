@@ -1,4 +1,11 @@
-import { ADD_DATA, LOGIN_SUCCESS, PATIENT, GET_PATIENT_DATA, LOGOUT } from "./ActionType";
+import {
+  ADD_DATA,
+  LOGIN_SUCCESS,
+  PATIENT,
+  GET_PATIENT_DATA,
+  LOGOUT,
+  APPOINTMENT,
+} from "./ActionType";
 import axios from "axios";
 
 export const addData = (userData) => {
@@ -24,6 +31,33 @@ export const addData = (userData) => {
       };
     } catch (err) {
       console.log("Error found", err);
+    }
+  };
+};
+
+export const appointment = (formData) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post(
+        "https://doctorappointmentweb.onrender.com/auth/BookAppointment",
+        formData
+      );
+
+      dispatch({
+        type: APPOINTMENT,
+        payload: {
+          httpresponse: res.data,
+        },
+      });
+
+      return {
+        payload: {
+          httpresponse: res.data,
+        },
+      };
+    } catch (error) {
+      console.log("Error found", error.response?.data || error.message);
+      throw error;
     }
   };
 };
@@ -58,10 +92,12 @@ export const patientdata = (patientdata) => {
 export const getPatientData = () => {
   return async (dispatch) => {
     try {
-      const res = await axios.get("https://doctorappointmentweb.onrender.com/patient/get");
+      const res = await axios.get(
+        "https://doctorappointmentweb.onrender.com/patient/get"
+      );
       dispatch({
         type: GET_PATIENT_DATA,
-        payload: res.data.patients, 
+        payload: res.data.patients,
       });
     } catch (error) {
       console.error("Error fetching patient data:", error);
@@ -87,9 +123,8 @@ export const login = (formdata) => {
   };
 };
 
-
-export const logout = () =>{
+export const logout = () => {
   return {
     type: LOGOUT,
-  }
-}
+  };
+};

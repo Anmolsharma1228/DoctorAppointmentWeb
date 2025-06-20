@@ -13,42 +13,20 @@ const Service = () => {
         <Header/>
       </div>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 md:gap-8 items-center justify-items-center mx-2 mt-20">
-      <div className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
-        <img src={img1} alt="" className="rounded-t-md" />
-        <p className="py-1 sm:py-2 font-semibold md:text-xl">CT SCAN | X-RAY</p>
+        {[
+          {department: "Dental Checkup", image: img1},
+          {department: "Dermalotogist", image: img2},
+          {department: "Cardiologist", image: img3},
+          {department: "Neruologist", image: img4},
+          {department: "Pediatrican", image: img5},
+          {department: "Lab Test", image: img6},
+        ].map((services, index)=>(
+          <div key={index} className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
+        <img src={services.image} alt="" className="rounded-t-md" />
+        <p className="py-1 sm:py-2 font-semibold md:text-xl">{services.department}</p>
       </div>
-      <div className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
-        <img src={img2} alt="" className="rounded-t-md" />
-        <p className="py-1 sm:py-2 font-semibold md:text-xl">Dental Checkup</p>
-      </div>
-      <div className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
-        <img src={img3} alt="" className="rounded-t-md" />
-        <p className="py-1 sm:py-2 font-semibold md:text-xl">Dermalotogist</p>
-      </div>
-      <div className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
-        <img src={img4} alt="" className="rounded-t-md" />
-        <p className="py-1 sm:py-2 font-semibold md:text-xl">Cardiologist</p>
-      </div>
-      <div className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
-        <img src={img5} alt="" className="rounded-t-md" />
-        <p className="py-1 sm:py-2 font-semibold md:text-xl">Neruologist</p>
-      </div>
-      <div className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
-        <img src={img6} alt="" className="rounded-t-md" />
-        <p className="py-1 sm:py-2 font-semibold md:text-xl">Pediatrican</p>
-      </div>
-      <div className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
-        <img src={img6} alt="" className="rounded-t-md" />
-        <p className="py-1 sm:py-2 font-semibold md:text-xl">Ayurveda Treatment</p>
-      </div>
-      <div className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
-        <img src={img6} alt="" className="rounded-t-md" />
-        <p className="py-1 sm:py-2 font-semibold md:text-xl">Lab Test</p>
-      </div>
-      <div className="rounded-md shadow-lg text-center flex flex-col items-center w-[150px] md:w-[300px] hover:scale-105 duration-400">
-        <img src={img6} alt="" className="rounded-t-md" />
-        <p className="py-1 sm:py-2 font-semibold md:text-xl">Gynae Health</p>
-      </div>
+        ))}
+      
     </div>
     </div>
 

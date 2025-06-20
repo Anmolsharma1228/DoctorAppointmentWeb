@@ -93,7 +93,7 @@ const Signup = () => {
 
 
   return (
-    <div className="flex items-center justify-center mt-14 text-center">
+    <div className="flex items-center justify-center mt-20 text-center">
       <div className="w-[350px] sm:w-[400px] shadow-xl mx-3 sm:mx-0">
         <div className="rounded-t-xl flex items-center justify-center bg-[#7A1CAC] text-white py-3">
           <FaLaptopMedical className="text-6xl" />

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBars, FaCheck, FaRegUser } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { logout } from "../Action/Action";
+import { getPatientData } from "../Action/Action";
 import { ImCross } from "react-icons/im";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import profile from "../assets/profile.jpg";
@@ -10,7 +11,11 @@ const Header = () => {
   const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+ 
 
+  useEffect(()=>{
+dispatch(getPatientData())
+  },[dispatch])
 
   const LogoutButton = () =>{
    dispatch(logout())
@@ -25,7 +30,7 @@ const Header = () => {
           <button onClick={() => setToggle(!toggle)}>
             {toggle ? <ImCross /> : <FaBars />}
           </button>
-          <span className="hidden md:inline">Patient System</span>
+          <span className="">Patient System</span>
         </div>
         <div className="space-x-8 text-lg font-semibold hidden md:flex">
           <NavLink
@@ -50,7 +55,7 @@ const Header = () => {
       </nav>
 
       {/* Sidebar */}
-      <div className={`bg-white shadow-lg w-[200px] fixed top-[64px] bottom-0 left-0 transform 
+      <div className={`bg-white shadow-lg w-[200px] fixed top-[60px] bottom-0 left-0 transform 
   ${toggle ? "translate-x-0" : "-translate-x-full"} 
   transition-transform duration-300 ease-in-out z-40 overflow-y-auto`}>
 
@@ -58,22 +63,22 @@ const Header = () => {
           <img src={profile} alt="Profile" className="w-[80px] h-[80px] rounded-full mx-auto" />
           <p className="font-semibold mt-2">Lorem Ipsum</p>
         </div>
-        <div className="md:hidden ml-4 text-center font-semibold flex flex-col my-5">
+        <div className="md:hidden ml-4 text-center font-semibold flex flex-col my-2">
           <NavLink
-            to="/Baapointment"
-            className="my-3 rounded-r-full bg-[#7A1CAC] text-white py-2 font-semibold text-lg cursor-pointer"
+            to="/Bappointment"
+            className="py-2 font-semibold text-md cursor-pointer"
           >
             Book Appointment
           </NavLink>
           <NavLink
             to="/Maapointment"
-            className="my-3 rounded-r-full bg-[#7A1CAC] text-white py-2 font-semibold text-lg cursor-pointer"
+            className="py-2 font-semibold text-md cursor-pointer"
           >
             My Appointment
           </NavLink>
           <NavLink
             to="/Service"
-            className="my-3 rounded-r-full bg-[#7A1CAC] text-white py-2 font-semibold text-lg cursor-pointer"
+            className="py-2 font-semibold text-md cursor-pointer"
           >
             Services
           </NavLink>
