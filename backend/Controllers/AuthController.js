@@ -74,7 +74,7 @@ const appointment = async (req, res) => {
     console.log("Form body:", req.body);
     console.log("Uploaded file:", req.file); // ✅ Check file info
 
-    const { date, department, comments } = req.body;
+    const { appointmentDate : date, department, comments } = req.body;
     const filePath = req.file ? req.file.path : null;
 
     const appointmentModel = new Appointment({
