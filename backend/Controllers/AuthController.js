@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/User');
 const Appointment = require('../models/appointment')
+const AppointmentData = require('../models/appointment')
 
   const signup = async (req, res) =>{
   try{
@@ -72,7 +73,7 @@ const Appointment = require('../models/appointment')
 const appointment = async (req, res) => {
   try {
     console.log("Form body:", req.body);
-    console.log("Uploaded file:", req.file); // ✅ Check file info
+    console.log("Uploaded file:", req.file);
 
     const { appointmentDate : date, department, comments } = req.body;
     const filePath = req.file ? req.file.path : null;
@@ -81,7 +82,7 @@ const appointment = async (req, res) => {
       date,
       department,
       comments,
-      file: filePath, // saved in DB
+      file: filePath, 
     });
 
     await appointmentModel.save();
@@ -101,9 +102,27 @@ const appointment = async (req, res) => {
 };
 
 
+const appointmentData = async(req, res)=>{
+ try{
+    const user = await AppointmentData.find();
+    return res.status(200).json({ 
+    success: true,  
+    message: "Data fetched successfully",
+    appointments: user 
+    });
+  }catch(error){
+    res.status(404).json({ 
+    success: false, 
+    message: "Error fetching data", 
+    error: error.message 
+    });
+  }
+}
+
 
 module.exports = {
   signup,
   login, 
-  appointment
+  appointment,
+  appointmentData
 }
