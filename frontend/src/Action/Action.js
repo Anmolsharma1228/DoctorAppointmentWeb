@@ -5,6 +5,7 @@ import {
   GET_PATIENT_DATA,
   LOGOUT,
   APPOINTMENT,
+  GETAPPOINTMENTDATA
 } from "./ActionType";
 import axios from "axios";
 
@@ -40,7 +41,11 @@ export const appointment = (formData) => {
     try {
       const res = await axios.post(
         "https://doctorappointmentweb.onrender.com/auth/BookAppointment",
-        formData
+        formData,{
+          headers: {
+      "Content-Type": "multipart/form-data",
+    },
+        }
       );
 
       dispatch({
@@ -101,6 +106,21 @@ export const getPatientData = () => {
       });
     } catch (error) {
       console.error("Error fetching patient data:", error);
+    }
+  };
+};
+
+export const getappointmentdata = () => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get("https://doctorappointmentweb.onrender.com/auth/appointmentdata");
+
+      dispatch({
+        type: GETAPPOINTMENTDATA,
+        payload: res.data.appointments,
+      });
+    } catch (error) {
+      console.error("Error fetching appointments:", error);
     }
   };
 };

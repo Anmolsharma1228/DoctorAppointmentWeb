@@ -9,7 +9,7 @@ import Header from "../Components/Header";
 import Login from "../Pages/Login";
 import Patient from "../Pages/Patient";
 
-const Router = () => {
+const Index = () => {
   return (
     <BrowserRouter>
       <Header />
@@ -26,4 +26,4 @@ const Router = () => {
   );
 };
 
-export default Router;
+export default Index;

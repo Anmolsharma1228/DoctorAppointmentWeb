@@ -1,12 +1,13 @@
-import { appointment } from "../Action/Action";
-import { ADD_DATA, LOGIN_SUCCESS, LOGIN_FAILURE, PATIENT, GET_PATIENT_DATA, LOGOUT, APPOINTMENT } from "../Action/ActionType"
+import { getappointmentdata } from "../Action/Action";
+import { ADD_DATA, LOGIN_SUCCESS, LOGIN_FAILURE, PATIENT, GET_PATIENT_DATA, LOGOUT, APPOINTMENT, GETAPPOINTMENTDATA } from "../Action/ActionType"
 
 const initistate = {
   data: [],
   user: null,
   error: null,
   patient: {},
-  appointment: {}
+  appointment: {},
+  getappointmentdata: []
 }
 
 const reducer = (state = initistate, action) =>{
@@ -27,6 +28,12 @@ switch(action.type){
       return {
         ...state,
         patient: action.payload,
+      };
+
+      case GETAPPOINTMENTDATA:
+      return {
+        ...state,
+        getappointmentdata: action.payload,
       };
 
   case LOGIN_SUCCESS:

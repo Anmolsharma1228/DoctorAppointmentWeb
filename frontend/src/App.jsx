@@ -1,13 +1,14 @@
 import React from 'react'
-import Router from './Routes/Router'
+import Router from './Routes/Index'
 import "react-toastify/dist/ReactToastify.css";
 import './App.css'
+import Index from './Routes/Index';
 
 function App() {
 
   return (
     <React.Fragment>
-    <Router/>
+    <Index/>
     </React.Fragment>
   )
 }
