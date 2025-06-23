@@ -71,7 +71,7 @@ dispatch(getPatientData())
             Book Appointment
           </NavLink>
           <NavLink
-            to="/Maapointment"
+            to="/Mappointment"
             className="py-2 font-semibold text-md cursor-pointer"
           >
             My Appointment
