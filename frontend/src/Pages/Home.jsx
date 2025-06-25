@@ -131,14 +131,11 @@ const Home = () => {
   };
 
   return (
-    <div className="maindiv">
-      <div>
-      <Header />
-    </div>
+   
     <div className="min-h-screen">
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-2xl rounded-xl w-[90%] max-w-[900px] mx-auto p-5 mt-15"
+        className="bg-white shadow-2xl rounded-xl w-[90%] max-w-[900px] mx-auto p-5 mt-24"
       >
         {/* Row 1 */}
         <div className="flex flex-wrap gap-6 justify-center mb-6">
@@ -274,7 +271,6 @@ const Home = () => {
           </button>
         </div>
       </form>
-    </div>
     </div>
   );
 };
