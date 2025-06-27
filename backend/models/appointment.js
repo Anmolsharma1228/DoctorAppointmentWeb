@@ -4,7 +4,6 @@ const appointmentSchema = new mongoose.Schema(
   {
     date: {
       type: Date,
-      required: true,
     },
     department: {
       type: String,
