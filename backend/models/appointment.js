@@ -1,9 +1,11 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 
 const appointmentSchema = new mongoose.Schema(
   {
     date: {
       type: Date,
+      required: true,
     },
     department: {
       type: String,

@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/User');
 const Appointment = require('../models/appointment')
-const AppointmentData = require('../models/appointment')
 
   const signup = async (req, res) =>{
   try{
@@ -75,11 +74,12 @@ const appointment = async (req, res) => {
     console.log("Form body:", req.body);
     console.log("Uploaded file:", req.file);
 
-    const { appointmentDate : date, department, comments } = req.body;
-    const filePath = req.file ? req.file.path : null;
+    const { date, department, comments } = req.body;
 
+    const filePath = req.file ? req.file.path : null;
+    const convertDate = new Date(date)
     const appointmentModel = new Appointment({
-      date,
+      date: convertDate,
       department,
       comments,
       file: filePath, 
