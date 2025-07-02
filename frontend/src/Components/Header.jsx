@@ -6,14 +6,20 @@ import { getPatientData } from "../Action/Action";
 import { ImCross } from "react-icons/im";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import profile from "../assets/profile.jpg";
+import { handleLogout } from "./firbase";
 
 const Header = () => {
   const [toggle, setToggle] = useState(false);
+  const [user, setUser] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
  
 
   useEffect(()=>{
+     const stored = localStorage.getItem("user");
+    if (stored) {
+      setUser(JSON.parse(stored));
+    }
 dispatch(getPatientData())
   },[dispatch])
 
@@ -61,7 +67,11 @@ dispatch(getPatientData())
 
         <div className="py-6 text-center">
           <img src={profile} alt="Profile" className="w-[80px] h-[80px] rounded-full mx-auto" />
-          <p className="font-semibold mt-2">Lorem Ipsum</p>
+           {user && (
+        <div className="text-sm">
+        <span className="font-semibold">{user.name}</span>
+        </div>
+      )}
         </div>
         <div className="md:hidden ml-4 text-center font-semibold flex flex-col my-2">
           <NavLink
@@ -88,7 +98,7 @@ dispatch(getPatientData())
             <FaCheck />
             Patient
           </Link>
-          <button onClick={LogoutButton} className="flex items-center justify-center gap-2 text-gray-800 bg-white py-2 rounded-r-full font-semibold text-lg cursor-pointer">
+          <button onClick={() => handleLogout(navigate)} className="flex items-center justify-center gap-2 text-gray-800 bg-white py-2 rounded-r-full font-semibold text-lg cursor-pointer">
             <FaRegUser />
             Logout
           </button>

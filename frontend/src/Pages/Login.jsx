@@ -1,4 +1,3 @@
-// src/Pages/Login.js
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../Action/Action";
@@ -6,9 +5,12 @@ import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { handleError, handleSuccess } from "../Components/utils";
 
+// ✅ Import Google login function
+import { handleGoogleLogin } from "../Components/firbase"; 
+
 const Login = () => {
   const [formdata, setformdata] = useState({ email: "", password: "" });
-  const [error, seterror] = useState({ email: "", password: "" });
+  const [error, seterror] = useState({ email: "", password: "", google: "" });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -66,7 +68,8 @@ const Login = () => {
     <div className="flex items-center justify-center mt-14 text-center">
       <div className="w-[350px] sm:w-[400px] shadow-xl mx-3 sm:mx-0">
         <h1 className="text-2xl font-semibold my-4">Login to your account</h1>
-        <form onSubmit={handleSubmit} className="py-3">
+        
+        <form onSubmit={handleSubmit} className="py-3 px-4 flex flex-col">
           <input
             type="email"
             name="email"
@@ -89,18 +92,30 @@ const Login = () => {
             <p className="text-red-500 text-sm">{error.password}</p>
           )}
 
-          <div className="my-4 text-white font-semibold text-lg">
-            <button
-              type="submit"
-              className="cursor-pointer bg-[#7A1CAC] px-5 py-1 rounded-sm"
-            >
-              Login
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="my-4 bg-[#7A1CAC] text-white font-semibold text-lg px-5 py-1 rounded-sm"
+          >
+            Login
+          </button>
+
           <p className="text-blue-500">
             <Link to="/">Don't have an account?</Link>
           </p>
+
+          <hr className="my-4" />
+
+          <button
+            type="button"
+            onClick={() => handleGoogleLogin(seterror, navigate)}
+            className="bg-blue-500 text-white px-4 py-2 rounded-sm"
+          >
+            Login with Google
+          </button>
+
+          {error.google && <p className="text-red-500 text-sm">{error.google}</p>}
         </form>
+
         <ToastContainer />
       </div>
     </div>
