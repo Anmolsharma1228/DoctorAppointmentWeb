@@ -33,7 +33,7 @@ const handleGoogleLogin = async (setError, navigate) => {
     }));
 
     setError("");
-    navigate("/home"); // redirect
+    navigate("/home");
   } catch (error) {
     console.error("Google login failed:", error);
     setError("Google login failed. Please try again.");
@@ -43,7 +43,7 @@ const handleGoogleLogin = async (setError, navigate) => {
 const handleLogout = async (navigate) => {
   try {
     await signOut(auth);
-    localStorage.removeItem("user"); // ✅ clear user
+    localStorage.removeItem("user");
     navigate("/login");
   } catch (error) {
     console.error("Logout error:", error);

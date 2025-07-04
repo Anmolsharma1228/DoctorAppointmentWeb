@@ -1,23 +1,25 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import Bappointment from "../Pages/Bappointment";
-import Mappointment from "../Pages/Mappointment";
-import Service from "../Pages/Service";
-import Signup from "../Pages/Signup";
-import Home from "../Pages/Home";
-import Header from "../Components/Header";
-import Login from "../Pages/Login";
-import Patient from "../Pages/Patient";
-import About from "../Pages/About";
-import Footer from "../Pages/Footer";
-import Help from "../Pages/Help";
+import Loader from "../Components/Loader";
+
+const Bappointment = lazy(() => import("../Pages/Bappointment"));
+const Mappointment = lazy(() => import("../Pages/Mappointment"));
+const Service = lazy(() => import("../Pages/Service"));
+const Signup = lazy(() => import("../Pages/Signup"));
+const Home = lazy(() => import("../Pages/Home"));
+const Header = lazy(() => import("../Components/Header"));
+const Login = lazy(() => import("../Pages/Login"));
+const Patient = lazy(() => import("../Pages/Patient"));
+const About = lazy(() => import("../Pages/About"));
+const Footer = lazy(() => import("../Components/Footer"));
+const Help = lazy(() => import("../Pages/Help"));
 
 const AppLayout = () => {
   const location = useLocation();
   const hideHeaderFooter = location.pathname === "/" || location.pathname === "/Login";
 
   return (
-    <>
+    <Suspense fallback={<Loader/>}>
       {!hideHeaderFooter && <Header />}
       <Routes>
         <Route path="/" element={<Signup />} />
@@ -31,7 +33,7 @@ const AppLayout = () => {
         <Route path="/Help" element={<Help />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}
-    </>
+    </Suspense>
   );
 };
 

@@ -5,7 +5,7 @@ import { addData } from "../Action/Action";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { handleError, handleSuccess } from "../Components/utils";
-import { handleGoogleLogin } from "../Components/firbase"; // ✅ import Google login
+import { handleGoogleLogin } from "../Components/firbase";
 
 const Signup = () => {
   const [formdata, setformdata] = useState({
@@ -20,7 +20,7 @@ const Signup = () => {
     email: "",
     contact_number: "",
     password: "",
-    google: "", // ✅ for Google login errors
+    google: "",
   });
 
   const navigate = useNavigate();
